@@ -1,0 +1,19 @@
+{
+  "name": "prompt-inflict-damage",
+  "title": "Prompt to inflict damage - dnd5e",
+  "description": "A simple module that prompts the user to reduce a character HP after damage rolls.",
+  "author": "Matteo Pieroni",
+  "version": "0.1.0",
+	"minimumCoreVersion": "0.6.6",
+	"scripts": [
+		"dist/index.js"
+	],
+	"languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+	],
+	"system": "dnd5e"
+}
