@@ -1,0 +1,11 @@
+{
+	"PID.InflictDamageQuestion": "Do you want to inflict damage?",
+	"PID.Inflict": "Inflict",
+	"PID.Cancel": "Cancel",
+	"PID.Damage": "Damage Formula",
+	"PID.RollSituationalModifier": "Modify Damage Formula",
+	"PID.RollSituationalModifierHint": "only accepts + and -",
+	"PID.RollExample": "+ 3 - 2",
+	"PID.IsDamageHalved": "Is the damage halved?",
+	"PID.IsDamageHalvedHint": "Certain features or resistances will halve the damage done to a character, check the box is this is the case."
+}
