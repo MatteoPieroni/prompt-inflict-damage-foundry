@@ -11,5 +11,11 @@ export function processDamage({ hp, damage, isHalved, modifier }) {
 		});
 	}
 
-	return modifiedDamage > 0 ? hp - modifiedDamage : hp;
+	const hasDamage = modifiedDamage > 0;
+	const newCalculatedHp = hp - modifiedDamage > 0 ? hp - modifiedDamage : 0;
+
+	return {
+		damage: hasDamage ? modifiedDamage : null,
+		hp: newCalculatedHp,
+	};
 }

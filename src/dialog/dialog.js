@@ -32,11 +32,29 @@ export async function showInfo({ total, target }) {
 			buttons: {
 				inflict: {
 					label: game.i18n.localize("PID.Inflict"),
-					callback: html => {
+					callback: async html => {
 						const isHalved = html[0].querySelector('form').querySelector('[name="halved"]').checked;
 						const modifier = html[0].querySelector('form').querySelector('[name="modifier"]').value;
 
-						actor.update({ 'data.attributes.hp.value': processDamage({ hp, damage: total, isHalved, modifier }) });
+						const { damage, hp: newHp } = processDamage({ hp, damage: total, isHalved, modifier });
+
+						actor.update({ 'data.attributes.hp.value': newHp });
+
+						if (damage) {
+							await ChatMessage.create(
+								{
+									content: game.i18n.format(
+										"PID.DamageInflicted",
+										{
+											name,
+											damage,
+										}
+									),
+									rollMode: 'selfroll'
+								},
+							);
+						}
+						
 						resolve()
 					},
 				},
