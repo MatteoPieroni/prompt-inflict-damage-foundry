@@ -4,6 +4,7 @@
   "description": "",
   "private": "true",
   "scripts": {
+    "dev": "webpack --config webpack.dev.js",
     "build": "webpack"
   },
   "repository": {
