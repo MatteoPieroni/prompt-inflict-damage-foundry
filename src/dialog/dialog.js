@@ -1,6 +1,7 @@
 import dialog from './dialog.html';
 
 import { processDamage, log } from '../utils';
+import { checkShouldShowDialog } from '../user-identity/user-identity';
 
 const TEMPLATE = 'modules/prompt-inflict-damage/dist/dialog.html';
 
@@ -8,9 +9,11 @@ export async function showInfo({ total, target }) {
 	const actor = target.actor;
 	const isOwner = actor.owner;
 
-	log(actor.permission)
-
-	if (!isOwner || !actor?.data?.data?.attributes?.hp?.value) {
+	if (
+		!isOwner ||
+		!actor?.data?.data?.attributes?.hp?.value ||
+		!checkShouldShowDialog(target)
+	) {
 		return;
 	}
 
