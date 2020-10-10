@@ -1,4 +1,5 @@
-function checkHasOwnerOtherThanGm(currentUser, targetId) {
+function checkHasOwnerOtherThanGm(targetId) {
+	const users = game?.users;
 	const actor = game?.actors?.get(targetId);
 
 	// no-op
@@ -7,16 +8,23 @@ function checkHasOwnerOtherThanGm(currentUser, targetId) {
 	}
 
 	// if the current user is the GM, remove GM and default properties and check other permissions
-	const hasNoneGMPermission = Object.keys(actor.data.permission)
+	const nonGMPermissionUsers = Object.keys(actor.data.permission)
 		.filter(perm => perm !== game.userId && perm !== 'default')
-		.filter(perm => actor.data.permission[perm] === 3)
+		.filter(perm => actor.data.permission[perm] === 3);
+
+	if (nonGMPermissionUsers.length === 0) {
+		return false;
+	}
+
+	// check any remaining owners are active
+	const hasNonGMPermissionInGame = nonGMPermissionUsers
+		.filter(permUser => users.get(permUser).active)
 		.length > 0;
 
-	// check is active
 
 	// if the current user is the GM and
 	// if there are other non-GM users with owner permission
-	return hasNoneGMPermission;
+	return hasNonGMPermissionInGame;
 }
 
 export function checkShouldShowDialog(target) {
@@ -28,7 +36,7 @@ export function checkShouldShowDialog(target) {
 		return true;
 	}
 
-	if (currentUser.isGM && checkHasOwnerOtherThanGm(currentUser, targetId)) {
+	if (currentUser.isGM && checkHasOwnerOtherThanGm(targetId)) {
 		return false;
 	}
 
