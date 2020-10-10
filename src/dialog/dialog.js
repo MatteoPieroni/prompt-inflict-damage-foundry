@@ -1,6 +1,6 @@
 import dialog from './dialog.html';
 
-import { processDamage } from '../utils';
+import { processDamage, log } from '../utils';
 
 const TEMPLATE = 'modules/prompt-inflict-damage/dist/dialog.html';
 
@@ -8,17 +8,16 @@ export async function showInfo({ total, target }) {
 	const actor = target.actor;
 	const isOwner = actor.owner;
 
-	console.log(actor.permission)
+	log(actor.permission)
 
-	if (!isOwner) {
+	if (!isOwner || !actor?.data?.data?.attributes?.hp?.value) {
 		return;
 	}
 
 	const name = actor?.data?.name;
-	const hp = actor?.data?.data?.attributes?.hp?.value;
 
   let dialogData = {
-		initialformula: `${hp} - ${total}`,
+		initialformula: `{{hp}} - ${total}`,
 		name,
   };
   const content = await renderTemplate(TEMPLATE, dialogData);
@@ -36,7 +35,7 @@ export async function showInfo({ total, target }) {
 						const isHalved = html[0].querySelector('form').querySelector('[name="halved"]').checked;
 						const modifier = html[0].querySelector('form').querySelector('[name="modifier"]').value;
 
-						const { damage, hp: newHp } = processDamage({ hp, damage: total, isHalved, modifier });
+						const { damage, hp: newHp } = processDamage({ actorInstance: actor, damage: total, isHalved, modifier });
 
 						actor.update({ 'data.attributes.hp.value': newHp });
 
