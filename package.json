@@ -37,7 +37,7 @@
 	},
 	"husky": {
     "hooks": {
-      "post-checkout": "if npm run is:release; then yarn test; fi"
+      "post-checkout": "if npm run is:release; then npm run build; fi"
     }
   }
 }
