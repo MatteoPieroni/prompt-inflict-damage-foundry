@@ -18,7 +18,7 @@ function checkHasOwnerOtherThanGm(targetId) {
 
 	// check any remaining owners are active
 	const hasNonGMPermissionInGame = nonGMPermissionUsers
-		.filter(permUser => users.get(permUser).active)
+		.filter(permUser => users.get(permUser)?.active)
 		.length > 0;
 
 
