@@ -2,6 +2,9 @@
 
 ## Releases
 
+### v0.4.0 - 25-10-2020
+- [Feature] Support AiME system (#5)
+
 ### v0.3.0 - 10-10-2020
 - [Feature] Remove dialog for GMs when there are active owners of a character (#2)
 
