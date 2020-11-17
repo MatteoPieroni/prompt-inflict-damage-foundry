@@ -10,5 +10,6 @@
 	"PID.IsDamageHalvedHint": "Certain features or resistances will halve the damage done to a character, check the box is this is the case.",
 	"PID.DamageInflicted": "{name} took {damage} points of damage!",
 	"PID.SettingFlagName": "The domain for the flag where the roll type is defined.",
-	"PID.SettingFlagNameHint": "Default is the current system name. This is an advanced feature, do not change it if you don't know what you're doing."
+	"PID.SettingFlagNameHint": "Default is the current system name. This is an advanced feature, do not change it if you don't know what you're doing.",
+	"PID.FormulaError": "There was an error in your formula, damage has not been applied."
 }
