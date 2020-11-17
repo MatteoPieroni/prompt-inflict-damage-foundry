@@ -38,7 +38,11 @@ export async function showInfo({ total, target }) {
 						const isHalved = html[0].querySelector('form').querySelector('[name="halved"]').checked;
 						const modifier = html[0].querySelector('form').querySelector('[name="modifier"]').value;
 
-						const { damage, hp: newHp } = processDamage({ actorInstance: actor, damage: total, isHalved, modifier });
+						const { damage, hp: newHp } = processDamage({ actorInstance: actor, damage: total, isHalved, modifier }) || {};
+						
+						if (!damage && !newHp) {
+							return;
+						}
 
 						actor.update({ 'data.attributes.hp.value': newHp });
 

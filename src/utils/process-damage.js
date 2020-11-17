@@ -3,14 +3,21 @@
 export function processDamage({ actorInstance, damage, isHalved, modifier }) {
 	const initialDamage = isHalved ? Math.floor(damage / 2) : damage;
 	const trimmedModifier = typeof modifier === 'string' && modifier.replaceAll(' ', '');
-	const finalModifiers = trimmedModifier && trimmedModifier.split(/(?<=[+-][0-9]+)/i);
-
 	let modifiedDamage = initialDamage;
 
-	if (finalModifiers.length > 0) {
-		finalModifiers.forEach(function(modifier) {
-			modifiedDamage = +modifiedDamage + +modifier;
-		});
+	if (trimmedModifier.length > 0) {
+		try {
+			// this is a small test to make sure that the user input is only numbers and operators
+			if (!(/^[\d+-]+$/g.test(trimmedModifier))) {
+				throw new Error('The string has characters that are not allowed');
+			}
+
+			modifiedDamage = eval(`${initialDamage} + ${trimmedModifier}`);
+		} catch(e) {
+			console.error(e);
+
+			return ui.notifications.error(game.i18n.localize("PID.FormulaError"));
+		}
 	}
 
 	const hasDamage = modifiedDamage > 0;
