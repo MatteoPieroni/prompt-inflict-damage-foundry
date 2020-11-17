@@ -3,14 +3,14 @@
 export function processDamage({ actorInstance, damage, isHalved, modifier }) {
 	const initialDamage = isHalved ? Math.floor(damage / 2) : damage;
 	const trimmedModifier = typeof modifier === 'string' && modifier.replaceAll(' ', '');
-	const finalModifiers = trimmedModifier && trimmedModifier.split(/(?<=[+-][0-9]+)/i);
-
 	let modifiedDamage = initialDamage;
 
-	if (finalModifiers.length > 0) {
-		finalModifiers.forEach(function(modifier) {
-			modifiedDamage = +modifiedDamage + +modifier;
-		});
+	if (trimmedModifier.length > 0) {
+		try {
+			modifiedDamage = eval(`${initialDamage} + ${trimmedModifier}`);
+		} catch(e) {
+			return ui.notifications.error(game.i18n.localize("PID.FormulaError"));
+		}
 	}
 
 	const hasDamage = modifiedDamage > 0;
