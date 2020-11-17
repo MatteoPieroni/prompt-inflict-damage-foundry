@@ -2,11 +2,19 @@ import { showInfo } from '../dialog/dialog';
 import { log } from '../utils';
 
 export async function inflictDamage({ app = {}, data = {}, }) {
-	const type = app?.data?.flags?.dnd5e?.roll?.type || app?.data?.flags?.aime?.roll?.type;
+	let flagDomain = game.system.id;
+
+	try {
+		flagDomain = game.settings.get('prompt-inflict-damage', 'flagDomain');
+	} catch(e) {
+		log("Game setting not found, falling back on the system id");
+	}
+
+	const type = app?.data?.flags?.[flagDomain]?.roll?.type || app?.data?.flags?.dnd5e?.roll?.type;
 	const targets = app.user && app.user.targets;
 
 	const isDamage = type === 'damage';
-	log('ciao', {type, targets})
+	log({type, targets})
 	
 	if (!isDamage) {
 		return;

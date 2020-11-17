@@ -1,10 +1,10 @@
 {
   "name": "prompt-inflict-damage",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "",
   "private": "true",
   "scripts": {
-		"is:release": "git-branch-is -r '^release/'",
+    "is:release": "git-branch-is -r '^release/'",
     "dev": "webpack --config webpack.dev.js",
     "build": "webpack"
   },
@@ -34,8 +34,8 @@
     "husky": "^4.3.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
-	},
-	"husky": {
+  },
+  "husky": {
     "hooks": {
       "post-checkout": "if npm run is:release; then npm run build; fi"
     }
